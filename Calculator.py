@@ -1,5 +1,24 @@
 from tkinter import *
 from PIL import ImageTk, Image
+from ctypes import windll
+
+GWL_EXSTYLE=-20
+WS_EX_APPWINDOW=0x00040000
+WS_EX_TOOLWINDOW=0x00000080
+
+
+def set_appwindow():
+    global hasstyle
+    if not hasstyle:
+        hwnd = windll.user32.GetParent(root.winfo_id())
+        style = windll.user32.GetWindowLongW(hwnd, GWL_EXSTYLE)
+        style = style & ~WS_EX_TOOLWINDOW
+        style = style | WS_EX_APPWINDOW
+        res = windll.user32.SetWindowLongW(hwnd, GWL_EXSTYLE, style)
+        root.withdraw()
+        root.after(100, lambda:root.wm_deiconify())
+        hasstyle=True
+
 
 calculation = ""
 
@@ -125,4 +144,10 @@ btn_decimal.grid(row=6, column=2, sticky="nsew")
 btn_equal = Button(root, text="=", command=evaluate_calculation, height=1, width=3, font=("Arial", 18),
                    bg="#fea00f", fg="white")
 btn_equal.grid(row=6, column=3, sticky="nsew")
+
+hasstyle = False
+root.update_idletasks()
+root.withdraw()
+set_appwindow()
+
 root.mainloop()
