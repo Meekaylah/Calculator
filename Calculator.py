@@ -32,28 +32,30 @@ def clear_field():
 
 
 def set_appwindow():
-    global hasstyle
+    global has_style
     GWL_EXSTYLE = -20
     WS_EX_APPWINDOW = 0x00040000
     WS_EX_TOOLWINDOW = 0x00000080
-    if not hasstyle:
+    if not has_style:
         hwnd = windll.user32.GetParent(root.winfo_id())
         style = windll.user32.GetWindowLongW(hwnd, GWL_EXSTYLE)
         style = style & ~WS_EX_TOOLWINDOW
         style = style | WS_EX_APPWINDOW
         res = windll.user32.SetWindowLongW(hwnd, GWL_EXSTYLE, style)
         root.withdraw()
-        root.after(10, lambda:root.wm_deiconify())
-        hasstyle=True
+        root.after(100, lambda: root.wm_deiconify())
+        has_style = True
+
 
 
 def move_app(e):
     root.geometry(f'+{e.x_root}+{e.y_root}')
 
 
-def minimize(hide=False):
-    hwnd = windll.user32.GetParent(root.winfo_id())
-    windll.user32.ShowWindow(hwnd, 0 if hide else 6)
+def minimize(event=None):
+    root.iconify()
+    # hwnd = windll.user32.GetParent(root.winfo_id())
+    # windll.user32.ShowWindow(hwnd, 0 if hide else 6)
 
 
 def quitter(e):
@@ -62,7 +64,7 @@ def quitter(e):
 
 root = Tk()
 root.geometry('234x323+400+300')
-root.iconbitmap
+root.iconbitmap('icons/icons8-calculator-48.ico')
 
 root.overrideredirect(True)
 
@@ -150,7 +152,7 @@ btn_equal = Button(root, text="=", command=evaluate_calculation, height=1, width
                    bg="#fea00f", fg="white")
 btn_equal.grid(row=6, column=3, sticky="nsew")
 
-hasstyle = False
+has_style = False
 root.update_idletasks()
 root.withdraw()
 set_appwindow()
