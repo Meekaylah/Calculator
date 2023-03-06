@@ -1,4 +1,5 @@
 from tkinter import *
+from PIL import ImageTk, Image
 
 calculation = ""
 
@@ -6,30 +7,30 @@ calculation = ""
 def add_to_calculation(symbol):
     global calculation
     calculation += str(symbol)
-    text_result.delete(1.0, "end")
-    text_result.insert(1.0, calculation)
+    text_result.delete(0, END)
+    text_result.insert(0, calculation)
 
 
 def evaluate_calculation():
     global calculation
     try:
         calculation = str(eval(calculation))
-        text_result.delete(1.0, "end")
-        text_result.insert(1.0, calculation)
+        text_result.delete(0, END)
+        text_result.insert(0, calculation)
     except:
         clear_field()
-        text_result.insert(1.0, "Error")
+        text_result.insert(0, "Error")
 
 
 def clear_field():
     global calculation
     calculation = ""
-    text_result.delete(1.0, "end")
+    text_result.delete(0, END)
     pass
 
 
 def move_app(e):
-    root.geometry(f' +{e.x_root}+{e.y_root}')
+    root.geometry(f'+{e.x_root}+{e.y_root}')
 
 
 def quitter(e):
@@ -39,26 +40,32 @@ def quitter(e):
 root = Tk()
 root.geometry('234x323+400+300')
 
-title_bar = Frame(root, bg="darkgreen", relief="raised", height=20, width=234)
-title_bar.grid(columnspan=4)
+root.overrideredirect(True)
+
+title_bar = Frame(root, bg="white", relief="raised", height=20, width=234, padx=0)
+title_bar.grid(columnspan=4, sticky="nsew", ipady=4)
 
 # Bind the title bar
-# title_bar.bind("<B1-Motion>", move_app)
+title_bar.bind("<B1-Motion>", move_app)
 
 # Create close button on title bar
-icon_red = PhotoImage(file='icons/icons8-red-circle-48.png')
-icon_red.resize()
-icon_yellow = PhotoImage(file='icons/icons8-yellow-circle-48.png')
-close_label = Label(title_bar, bg="darkgreen", fg="white", image=icon_red)
-close_label.pack(side=LEFT, padx=4)
+
+icon_red = Image.open('icons/icons8-red-circle-48.png')
+resized_icon_red = icon_red.resize((14, 14), Image.LANCZOS)
+red = ImageTk.PhotoImage(resized_icon_red)
+icon_yellow = Image.open('icons/icons8-yellow-circle-48.png')
+resized_icon_yellow = icon_yellow.resize((14, 14), Image.LANCZOS)
+yellow = ImageTk.PhotoImage(resized_icon_yellow)
+close_label = Label(title_bar, bg="white", fg="white", image=red)
+close_label.pack(side=LEFT, padx=2)
 close_label.bind("<Button-1>", quitter)
-hide_label = Label(title_bar, bg="darkgreen", fg="white", image= icon_yellow)
-hide_label.pack(side=LEFT, padx=4)
+hide_label = Label(title_bar, bg="white", fg="white", image=yellow)
+hide_label.pack(side=LEFT)
 hide_label.bind("<Button-1>", quitter)
 
 
-text_result = Text(root, height=1, width=9, font=("Arial", 34))
-text_result.grid(row=1, columnspan=4, ipadx=3, ipady=7, sticky="nsew")
+text_result = Entry(root, width=9, font=("Arial", 34), relief=RAISED, justify=RIGHT)
+text_result.grid(row=1, columnspan=4, ipadx=3, ipady=4)
 
 btn_0 = Button(root, text="0", command=lambda: add_to_calculation(0), height=1, width=3, font=("Arial", 18))
 btn_0.grid(row=6, column=0, columnspan=2, sticky="nsew")
