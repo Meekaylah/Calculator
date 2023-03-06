@@ -64,45 +64,65 @@ hide_label.pack(side=LEFT)
 hide_label.bind("<Button-1>", quitter)
 
 
-text_result = Entry(root, width=9, font=("Arial", 34), relief=RAISED, justify=RIGHT, bg="#57504d", bd=0)
+text_result = Entry(root, width=9, font=("Arial", 34), relief=RAISED, justify=RIGHT, bg="#57504d", bd=0, fg="white")
+text_result.insert(0, '0')
 text_result.grid(row=1, columnspan=4, ipadx=3.5, ipady=5)
 
-btn_0 = Button(root, text="0", command=lambda: add_to_calculation(0), height=1, width=3, font=("Arial", 18), bg="#837e7d")
+btn_0 = Button(root, text="0", command=lambda: add_to_calculation(0), height=1, width=3, font=("Arial", 18),
+               bg="#837e7d", fg="white")
 btn_0.grid(row=6, column=0, columnspan=2, sticky="nsew")
-btn_1 = Button(root, text="1", command=lambda: add_to_calculation(1), height=1, width=3, font=("Arial", 18), bg="#837e7d")
+btn_1 = Button(root, text="1", command=lambda: add_to_calculation(1), height=1, width=3, font=("Arial", 18),
+               bg="#837e7d", fg="white")
 btn_1.grid(row=5, column=0, sticky="nsew")
-btn_2 = Button(root, text="2", command=lambda: add_to_calculation(2), height=1, width=3, font=("Arial", 18), bg="#837e7d")
+btn_2 = Button(root, text="2", command=lambda: add_to_calculation(2), height=1, width=3, font=("Arial", 18),
+               bg="#837e7d", fg="white")
 btn_2.grid(row=5, column=1, sticky="nsew")
-btn_3 = Button(root, text="3", command=lambda: add_to_calculation(3), height=1, width=3, font=("Arial", 18), bg="#837e7d")
+btn_3 = Button(root, text="3", command=lambda: add_to_calculation(3), height=1, width=3, font=("Arial", 18),
+               bg="#837e7d", fg="white")
 btn_3.grid(row=5, column=2, sticky="nsew")
-btn_4 = Button(root, text="4", command=lambda: add_to_calculation(4), height=1, width=3, font=("Arial", 18), bg="#837e7d")
+btn_4 = Button(root, text="4", command=lambda: add_to_calculation(4), height=1, width=3, font=("Arial", 18),
+               bg="#837e7d", fg="white")
 btn_4.grid(row=4, column=0, sticky="nsew")
-btn_5 = Button(root, text="5", command=lambda: add_to_calculation(5), height=1, width=3, font=("Arial", 18), bg="#837e7d")
+btn_5 = Button(root, text="5", command=lambda: add_to_calculation(5), height=1, width=3, font=("Arial", 18),
+               bg="#837e7d", fg="white")
 btn_5.grid(row=4, column=1, sticky="nsew")
-btn_6 = Button(root, text="6", command=lambda: add_to_calculation(6), height=1, width=3, font=("Arial", 18), bg="#837e7d")
+btn_6 = Button(root, text="6", command=lambda: add_to_calculation(6), height=1, width=3, font=("Arial", 18),
+               bg="#837e7d", fg="white")
 btn_6.grid(row=4, column=2, sticky="nsew")
-btn_7 = Button(root, text="7", command=lambda: add_to_calculation(7), height=1, width=3, font=("Arial", 18), bg="#837e7d")
+btn_7 = Button(root, text="7", command=lambda: add_to_calculation(7), height=1, width=3, font=("Arial", 18),
+               bg="#837e7d", fg="white")
 btn_7.grid(row=3, column=0, sticky="nsew")
-btn_8 = Button(root, text="8", command=lambda: add_to_calculation(8), height=1, width=3, font=("Arial", 18), bg="#837e7d")
+btn_8 = Button(root, text="8", command=lambda: add_to_calculation(8), height=1, width=3, font=("Arial", 18),
+               bg="#837e7d", fg="white")
 btn_8.grid(row=3, column=1, sticky="nsew")
-btn_9 = Button(root, text="9", command=lambda: add_to_calculation(9), height=1, width=3, font=("Arial", 18), bg="#837e7d")
+btn_9 = Button(root, text="9", command=lambda: add_to_calculation(9), height=1, width=3, font=("Arial", 18),
+               bg="#837e7d", fg="white")
 btn_9.grid(row=3, column=2, sticky="nsew")
-btn_AC = Button(root, text="AC", command=clear_field, height=1, width=3, font=("Arial", 18), bg="#6a6563")
+btn_AC = Button(root, text="AC", command=clear_field, height=1, width=3, font=("Arial", 18),
+                bg="#6a6563", fg="white")
 btn_AC.grid(row=2, column=0, sticky="nsew")
-btn_plus_or_minus = Button(root, text="⁺/₋", command="", height=1, width=3, font=("Arial", 18), bg="#6a6563")
+btn_plus_or_minus = Button(root, text="⁺/₋", command="", height=1, width=3, font=("Arial", 18),
+                           bg="#6a6563", fg="white")
 btn_plus_or_minus.grid(row=2, column=1, sticky="nsew")
-btn_percent = Button(root, text="%", command=lambda: add_to_calculation("%"), height=1, width=3, font=("Arial", 18), bg="#6a6563")
+btn_percent = Button(root, text="%", command=lambda: add_to_calculation("%"), height=1, width=3, font=("Arial", 18),
+                     bg="#6a6563", fg="white")
 btn_percent.grid(row=2, column=2, sticky="nsew")
-btn_divide = Button(root, text="÷", command=lambda: add_to_calculation("/"), height=1, width=3, font=("Arial", 18), bg="#fea00f")
+btn_divide = Button(root, text="÷", command=lambda: add_to_calculation("/"), height=1, width=3, font=("Arial", 18),
+                    bg="#fea00f", fg="white")
 btn_divide.grid(row=2, column=3, sticky="nsew")
-btn_multiply = Button(root, text="×", command=lambda: add_to_calculation("*"), height=1, width=3, font=("Arial", 18), bg="#fea00f")
+btn_multiply = Button(root, text="×", command=lambda: add_to_calculation("*"), height=1, width=3, font=("Arial", 18),
+                      bg="#fea00f", fg="white")
 btn_multiply.grid(row=3, column=3, sticky="nsew")
-btn_subtract = Button(root, text="-", command=lambda: add_to_calculation("-"), height=1, width=3, font=("Arial", 18), bg="#fea00f")
+btn_subtract = Button(root, text="-", command=lambda: add_to_calculation("-"), height=1, width=3, font=("Arial", 18),
+                      bg="#fea00f", fg="white")
 btn_subtract.grid(row=4, column=3, sticky="nsew")
-btn_add = Button(root, text="+", command=lambda: add_to_calculation("+"), height=1, width=3, font=("Arial", 18), bg="#fea00f")
+btn_add = Button(root, text="+", command=lambda: add_to_calculation("+"), height=1, width=3, font=("Arial", 18),
+                 bg="#fea00f", fg="white")
 btn_add.grid(row=5, column=3, sticky="nsew")
-btn_decimal = Button(root, text=".", command=lambda: add_to_calculation("."), height=1, width=3, font=("Arial", 18), bg="#837e7d")
+btn_decimal = Button(root, text=".", command=lambda: add_to_calculation("."), height=1, width=3, font=("Arial", 18),
+                     bg="#837e7d", fg="white")
 btn_decimal.grid(row=6, column=2, sticky="nsew")
-btn_equal = Button(root, text="=", command=evaluate_calculation, height=1, width=3, font=("Arial", 18), bg="#fea00f")
+btn_equal = Button(root, text="=", command=evaluate_calculation, height=1, width=3, font=("Arial", 18),
+                   bg="#fea00f", fg="white")
 btn_equal.grid(row=6, column=3, sticky="nsew")
 root.mainloop()
