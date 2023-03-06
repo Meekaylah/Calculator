@@ -2,23 +2,6 @@ from tkinter import *
 from PIL import ImageTk, Image
 from ctypes import windll
 
-GWL_EXSTYLE=-20
-WS_EX_APPWINDOW=0x00040000
-WS_EX_TOOLWINDOW=0x00000080
-
-
-def set_appwindow():
-    global hasstyle
-    if not hasstyle:
-        hwnd = windll.user32.GetParent(root.winfo_id())
-        style = windll.user32.GetWindowLongW(hwnd, GWL_EXSTYLE)
-        style = style & ~WS_EX_TOOLWINDOW
-        style = style | WS_EX_APPWINDOW
-        res = windll.user32.SetWindowLongW(hwnd, GWL_EXSTYLE, style)
-        root.withdraw()
-        root.after(100, lambda:root.wm_deiconify())
-        hasstyle=True
-
 
 calculation = ""
 
@@ -48,8 +31,29 @@ def clear_field():
     pass
 
 
+def set_appwindow():
+    global hasstyle
+    GWL_EXSTYLE = -20
+    WS_EX_APPWINDOW = 0x00040000
+    WS_EX_TOOLWINDOW = 0x00000080
+    if not hasstyle:
+        hwnd = windll.user32.GetParent(root.winfo_id())
+        style = windll.user32.GetWindowLongW(hwnd, GWL_EXSTYLE)
+        style = style & ~WS_EX_TOOLWINDOW
+        style = style | WS_EX_APPWINDOW
+        res = windll.user32.SetWindowLongW(hwnd, GWL_EXSTYLE, style)
+        root.withdraw()
+        root.after(10, lambda:root.wm_deiconify())
+        hasstyle=True
+
+
 def move_app(e):
     root.geometry(f'+{e.x_root}+{e.y_root}')
+
+
+def minimize(hide=False):
+    hwnd = windll.user32.GetParent(root.winfo_id())
+    windll.user32.ShowWindow(hwnd, 0 if hide else 6)
 
 
 def quitter(e):
@@ -58,6 +62,7 @@ def quitter(e):
 
 root = Tk()
 root.geometry('234x323+400+300')
+root.iconbitmap
 
 root.overrideredirect(True)
 
@@ -80,7 +85,7 @@ close_label.pack(side=LEFT, padx=2)
 close_label.bind("<Button-1>", quitter)
 hide_label = Label(title_bar, bg="#57504d", fg="white", image=yellow)
 hide_label.pack(side=LEFT)
-hide_label.bind("<Button-1>", quitter)
+hide_label.bind("<Button-1>", minimize)
 
 
 text_result = Entry(root, width=9, font=("Arial", 34), relief=RAISED, justify=RIGHT, bg="#57504d", bd=0, fg="white")
