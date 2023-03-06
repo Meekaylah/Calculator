@@ -1,4 +1,4 @@
-import tkinter as tk
+from tkinter import *
 
 calculation = ""
 
@@ -28,48 +28,74 @@ def clear_field():
     pass
 
 
-root = tk.Tk()
-root.geometry("191x270")
+def move_app(e):
+    root.geometry(f' +{e.x_root}+{e.y_root}')
 
-text_result = tk.Text(root, height=1, width=8, font=("Arial", 32))
-text_result.grid(columnspan=5)
 
-btn_0 = tk.Button(root, text="0", command=lambda: add_to_calculation(0), height=1, width=3, font=("Arial", 16))
-btn_0.grid(row=5, column=1, columnspan=2, sticky="nsew")
-btn_1 = tk.Button(root, text="1", command=lambda: add_to_calculation(1), height=1, width=3, font=("Arial", 16))
-btn_1.grid(row=4, column=1, sticky="nsew")
-btn_2 = tk.Button(root, text="2", command=lambda: add_to_calculation(2), height=1, width=3, font=("Arial", 16))
-btn_2.grid(row=4, column=2, sticky="nsew")
-btn_3 = tk.Button(root, text="3", command=lambda: add_to_calculation(3), height=1, width=3, font=("Arial", 16))
-btn_3.grid(row=4, column=3, sticky="nsew")
-btn_4 = tk.Button(root, text="4", command=lambda: add_to_calculation(4), height=1, width=3, font=("Arial", 16))
-btn_4.grid(row=3, column=1, sticky="nsew")
-btn_5 = tk.Button(root, text="5", command=lambda: add_to_calculation(5), height=1, width=3, font=("Arial", 16))
-btn_5.grid(row=3, column=2, sticky="nsew")
-btn_6 = tk.Button(root, text="6", command=lambda: add_to_calculation(6), height=1, width=3, font=("Arial", 16))
-btn_6.grid(row=3, column=3, sticky="nsew")
-btn_7 = tk.Button(root, text="7", command=lambda: add_to_calculation(7), height=1, width=3, font=("Arial", 16))
-btn_7.grid(row=2, column=1, sticky="nsew")
-btn_8 = tk.Button(root, text="8", command=lambda: add_to_calculation(8), height=1, width=3, font=("Arial", 16))
-btn_8.grid(row=2, column=2, sticky="nsew")
-btn_9 = tk.Button(root, text="9", command=lambda: add_to_calculation(9), height=1, width=3, font=("Arial", 16))
-btn_9.grid(row=2, column=3, sticky="nsew")
-btn_AC = tk.Button(root, text="AC", command=clear_field, height=1, width=3, font=("Arial", 16))
-btn_AC.grid(row=1, column=1, sticky="nsew")
-btn_plus_or_minus = tk.Button(root, text="⁺/₋", command="", height=1, width=3, font=("Arial", 16))
-btn_plus_or_minus.grid(row=1, column=2, sticky="nsew")
-btn_percent = tk.Button(root, text="%", command=lambda: add_to_calculation("%"), height=1, width=3, font=("Arial", 16))
-btn_percent.grid(row=1, column=3, sticky="nsew")
-btn_divide = tk.Button(root, text="÷", command=lambda: add_to_calculation("/"), height=1, width=3, font=("Arial", 16))
-btn_divide.grid(row=1, column=4, sticky="nsew")
-btn_multiply = tk.Button(root, text="×", command=lambda: add_to_calculation("*"), height=1, width=3, font=("Arial", 16))
-btn_multiply.grid(row=2, column=4, sticky="nsew")
-btn_subtract = tk.Button(root, text="-", command=lambda: add_to_calculation("-"), height=1, width=3, font=("Arial", 16))
-btn_subtract.grid(row=3, column=4, sticky="nsew")
-btn_add = tk.Button(root, text="+", command=lambda: add_to_calculation("+"), height=1, width=3, font=("Arial", 16))
-btn_add.grid(row=4, column=4, sticky="nsew")
-btn_decimal = tk.Button(root, text=".", command=lambda: add_to_calculation("."), height=1, width=3, font=("Arial", 16))
-btn_decimal.grid(row=5, column=3, sticky="nsew")
-btn_equal = tk.Button(root, text="=", command=evaluate_calculation, height=1, width=3, font=("Arial", 16))
-btn_equal.grid(row=5, column=4, sticky="nsew")
+def quitter(e):
+    root.quit()
+
+
+root = Tk()
+root.geometry('234x323+400+300')
+
+title_bar = Frame(root, bg="darkgreen", relief="raised", height=20, width=234)
+title_bar.grid(columnspan=4)
+
+# Bind the title bar
+# title_bar.bind("<B1-Motion>", move_app)
+
+# Create close button on title bar
+icon_red = PhotoImage(file='icons/icons8-red-circle-48.png')
+icon_red.resize()
+icon_yellow = PhotoImage(file='icons/icons8-yellow-circle-48.png')
+close_label = Label(title_bar, bg="darkgreen", fg="white", image=icon_red)
+close_label.pack(side=LEFT, padx=4)
+close_label.bind("<Button-1>", quitter)
+hide_label = Label(title_bar, bg="darkgreen", fg="white", image= icon_yellow)
+hide_label.pack(side=LEFT, padx=4)
+hide_label.bind("<Button-1>", quitter)
+
+
+text_result = Text(root, height=1, width=9, font=("Arial", 34))
+text_result.grid(row=1, columnspan=4, ipadx=3, ipady=7, sticky="nsew")
+
+btn_0 = Button(root, text="0", command=lambda: add_to_calculation(0), height=1, width=3, font=("Arial", 18))
+btn_0.grid(row=6, column=0, columnspan=2, sticky="nsew")
+btn_1 = Button(root, text="1", command=lambda: add_to_calculation(1), height=1, width=3, font=("Arial", 18))
+btn_1.grid(row=5, column=0, sticky="nsew")
+btn_2 = Button(root, text="2", command=lambda: add_to_calculation(2), height=1, width=3, font=("Arial", 18))
+btn_2.grid(row=5, column=1, sticky="nsew")
+btn_3 = Button(root, text="3", command=lambda: add_to_calculation(3), height=1, width=3, font=("Arial", 18))
+btn_3.grid(row=5, column=2, sticky="nsew")
+btn_4 = Button(root, text="4", command=lambda: add_to_calculation(4), height=1, width=3, font=("Arial", 18))
+btn_4.grid(row=4, column=0, sticky="nsew")
+btn_5 = Button(root, text="5", command=lambda: add_to_calculation(5), height=1, width=3, font=("Arial", 18))
+btn_5.grid(row=4, column=1, sticky="nsew")
+btn_6 = Button(root, text="6", command=lambda: add_to_calculation(6), height=1, width=3, font=("Arial", 18))
+btn_6.grid(row=4, column=2, sticky="nsew")
+btn_7 = Button(root, text="7", command=lambda: add_to_calculation(7), height=1, width=3, font=("Arial", 18))
+btn_7.grid(row=3, column=0, sticky="nsew")
+btn_8 = Button(root, text="8", command=lambda: add_to_calculation(8), height=1, width=3, font=("Arial", 18))
+btn_8.grid(row=3, column=1, sticky="nsew")
+btn_9 = Button(root, text="9", command=lambda: add_to_calculation(9), height=1, width=3, font=("Arial", 18))
+btn_9.grid(row=3, column=2, sticky="nsew")
+btn_AC = Button(root, text="AC", command=clear_field, height=1, width=3, font=("Arial", 18))
+btn_AC.grid(row=2, column=0, sticky="nsew")
+btn_plus_or_minus = Button(root, text="⁺/₋", command="", height=1, width=3, font=("Arial", 18))
+btn_plus_or_minus.grid(row=2, column=1, sticky="nsew")
+btn_percent = Button(root, text="%", command=lambda: add_to_calculation("%"), height=1, width=3, font=("Arial", 18))
+btn_percent.grid(row=2, column=2, sticky="nsew")
+btn_divide = Button(root, text="÷", command=lambda: add_to_calculation("/"), height=1, width=3, font=("Arial", 18))
+btn_divide.grid(row=2, column=3, sticky="nsew")
+btn_multiply = Button(root, text="×", command=lambda: add_to_calculation("*"), height=1, width=3, font=("Arial", 18))
+btn_multiply.grid(row=3, column=3, sticky="nsew")
+btn_subtract = Button(root, text="-", command=lambda: add_to_calculation("-"), height=1, width=3, font=("Arial", 18))
+btn_subtract.grid(row=4, column=3, sticky="nsew")
+btn_add = Button(root, text="+", command=lambda: add_to_calculation("+"), height=1, width=3, font=("Arial", 18))
+btn_add.grid(row=5, column=3, sticky="nsew")
+btn_decimal = Button(root, text=".", command=lambda: add_to_calculation("."), height=1, width=3, font=("Arial", 18))
+btn_decimal.grid(row=6, column=2, sticky="nsew")
+btn_equal = Button(root, text="=", command=evaluate_calculation, height=1, width=3, font=("Arial", 18))
+btn_equal.grid(row=6, column=3, sticky="nsew")
 root.mainloop()
