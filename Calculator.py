@@ -4,6 +4,7 @@ from ctypes import windll
 
 
 calculation = ""
+z = 0
 
 
 def add_to_calculation(symbol):
@@ -28,6 +29,7 @@ def clear_field():
     global calculation
     calculation = ""
     text_result.delete(0, END)
+    text_result.insert(0, "0")
     pass
 
 
@@ -43,19 +45,37 @@ def set_appwindow():
         style = style | WS_EX_APPWINDOW
         res = windll.user32.SetWindowLongW(hwnd, GWL_EXSTYLE, style)
         root.withdraw()
-        root.after(100, lambda: root.wm_deiconify())
-        has_style = True
-
+        root.after(10, lambda: root.wm_deiconify())
+        has_style = False
 
 
 def move_app(e):
     root.geometry(f'+{e.x_root}+{e.y_root}')
 
 
-def minimize(event=None):
-    root.iconify()
-    # hwnd = windll.user32.GetParent(root.winfo_id())
-    # windll.user32.ShowWindow(hwnd, 0 if hide else 6)
+def frame_mapped(e):
+    global z
+    root.overrideredirect(True)
+    root.iconbitmap("icons/icons8-calculator-48.ico")
+    if z == 1:
+        set_appwindow()
+        z = 0
+    # print(e)
+    # root.update_idletasks()
+    # root.overrideredirect(True)
+    # root.state('normal')
+
+
+def minimize(event):
+    global z
+    root.state('withdrawn')
+    root.overrideredirect(False)
+    root.state('iconic')
+    z = 1
+    # root.update_idletasks()
+    # root.overrideredirect(False)
+    # # root.state('withdrawn')
+    # root.state('iconic')
 
 
 def quitter(e):
@@ -64,9 +84,14 @@ def quitter(e):
 
 root = Tk()
 root.geometry('234x323+400+300')
-root.iconbitmap('icons/icons8-calculator-48.ico')
+# root.iconbitmap('icons/icons8-calculator-48.ico')
+root.bind("<Map>", frame_mapped)
 
+
+root.resizable(width=False, height=False)
 root.overrideredirect(True)
+root.after(10, lambda: set_appwindow())
+
 
 title_bar = Frame(root, bg="#57504d", relief="raised", height=20, width=234, padx=0)
 title_bar.grid(columnspan=4, sticky="nsew", ipady=4)
