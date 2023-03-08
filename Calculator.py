@@ -2,9 +2,9 @@ from tkinter import *
 from PIL import ImageTk, Image
 from ctypes import windll
 
-
 calculation = ""
 z = 0
+has_style = False
 
 
 def add_to_calculation(symbol):
@@ -60,10 +60,6 @@ def frame_mapped(e):
     if z == 1:
         set_appwindow()
         z = 0
-    # print(e)
-    # root.update_idletasks()
-    # root.overrideredirect(True)
-    # root.state('normal')
 
 
 def minimize(event):
@@ -72,27 +68,23 @@ def minimize(event):
     root.overrideredirect(False)
     root.state('iconic')
     z = 1
-    # root.update_idletasks()
-    # root.overrideredirect(False)
-    # # root.state('withdrawn')
-    # root.state('iconic')
 
 
 def quitter(e):
-    root.quit()
+    root.destroy()
 
 
+# Create window
 root = Tk()
 root.geometry('234x323+400+300')
-# root.iconbitmap('icons/icons8-calculator-48.ico')
 root.bind("<Map>", frame_mapped)
-
-
 root.resizable(width=False, height=False)
 root.overrideredirect(True)
+root.update_idletasks()
 root.after(10, lambda: set_appwindow())
 
 
+# Create title bar
 title_bar = Frame(root, bg="#57504d", relief="raised", height=20, width=234, padx=0)
 title_bar.grid(columnspan=4, sticky="nsew", ipady=4)
 
@@ -100,25 +92,29 @@ title_bar.grid(columnspan=4, sticky="nsew", ipady=4)
 title_bar.bind("<B1-Motion>", move_app)
 
 # Create close button on title bar
-
 icon_red = Image.open('icons/icons8-red-circle-48.png')
 resized_icon_red = icon_red.resize((14, 14), Image.LANCZOS)
 red = ImageTk.PhotoImage(resized_icon_red)
-icon_yellow = Image.open('icons/icons8-yellow-circle-48.png')
-resized_icon_yellow = icon_yellow.resize((14, 14), Image.LANCZOS)
-yellow = ImageTk.PhotoImage(resized_icon_yellow)
 close_label = Label(title_bar, bg="#57504d", fg="white", image=red)
 close_label.pack(side=LEFT, padx=2)
 close_label.bind("<Button-1>", quitter)
+
+# Create minimize button on title bar
+icon_yellow = Image.open('icons/icons8-yellow-circle-48.png')
+resized_icon_yellow = icon_yellow.resize((14, 14), Image.LANCZOS)
+yellow = ImageTk.PhotoImage(resized_icon_yellow)
 hide_label = Label(title_bar, bg="#57504d", fg="white", image=yellow)
 hide_label.pack(side=LEFT)
 hide_label.bind("<Button-1>", minimize)
 
 
+# Create Entry bar for text input
 text_result = Entry(root, width=9, font=("Arial", 34), relief=RAISED, justify=RIGHT, bg="#57504d", bd=0, fg="white")
 text_result.insert(0, '0')
 text_result.grid(row=1, columnspan=4, ipadx=3.5, ipady=5)
 
+
+# Create buttons for numbers and other functions
 btn_0 = Button(root, text="0", command=lambda: add_to_calculation(0), height=1, width=3, font=("Arial", 18),
                bg="#837e7d", fg="white")
 btn_0.grid(row=6, column=0, columnspan=2, sticky="nsew")
@@ -177,9 +173,5 @@ btn_equal = Button(root, text="=", command=evaluate_calculation, height=1, width
                    bg="#fea00f", fg="white")
 btn_equal.grid(row=6, column=3, sticky="nsew")
 
-has_style = False
-root.update_idletasks()
-root.withdraw()
-set_appwindow()
 
 root.mainloop()
