@@ -40,6 +40,7 @@ def evaluate_calculation():
     global calculation
     try:
         calculation = str(eval(calculation))
+        btn_AC.config(text="AC", command=clear_field)
         text_result.delete(0, END)
         text_result.insert(0, calculation)
     except:
@@ -54,9 +55,16 @@ def clear_field():
     text_result.insert(0, "0")
     pass
 
+
 def clear_string():
     global calculation
-    calculation.chop()
+    calculation = calculation[0:-1]
+    text_result.delete(0, END)
+    text_result.insert(0, calculation)
+    if calculation == "":
+        btn_AC.config(text="AC", command=clear_field)
+        text_result.delete(0, END)
+        text_result.insert(0, "0")
 
 
 def set_appwindow():
