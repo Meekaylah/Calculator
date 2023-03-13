@@ -1,7 +1,6 @@
 from tkinter import *
 from PIL import ImageTk, Image
 from ctypes import windll
-import tkinter.ttk as ttk
 
 calculation = ""
 z = 0
