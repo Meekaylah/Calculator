@@ -16,23 +16,10 @@ def add_to_calculation(symbol):
     text_result.insert(0, calculation)
 
 
-def add_minus(minus):
+def functions(operator):
     global calculation
-    calculation = str(calculation)
-    if minus not in calculation:
-        calculation = calculation[:0] + str(minus) + calculation[0:]
-    else:
-        calculation = calculation.replace(minus, "")
-    text_result.delete(0, END)
-    text_result.insert(0, calculation)
 
-
-def calculate_percent(percent):
-    global calculation
-    if percent == "%":
-        calculation = str(float(calculation) / 100)
-    text_result.delete(0, END)
-    text_result.insert(0, calculation)
+    calculation += str(operator)
 
 
 def evaluate_calculation():
@@ -45,6 +32,24 @@ def evaluate_calculation():
     except:
         clear_field()
         text_result.insert(0, "Error")
+
+
+def add_minus(minus):
+    global calculation
+    calculation = str(calculation)
+    if minus not in calculation:
+        calculation = calculation[:0] + str(minus) + calculation[0:]
+    else:
+        calculation = calculation.replace(minus, "")
+    text_result.delete(0, END)
+    text_result.insert(0, calculation)
+
+
+def calculate_percent():
+    global calculation
+    calculation = str(float(calculation) / 100)
+    text_result.delete(0, END)
+    text_result.insert(0, calculation)
 
 
 def clear_field():
@@ -116,7 +121,7 @@ root.update_idletasks()
 root.after(10, lambda: set_appwindow())
 
 # Create icon for app
-root.tk.call('wm', 'iconphoto', root.w, PhotoImage(file='icons/icons8-calculator-48.ico'))
+# root.tk.call('wm', 'iconphoto', root.w, PhotoImage(file='icons/icons8-calculator-48.ico'))
 
 
 # Create title bar
@@ -187,7 +192,7 @@ btn_AC.grid(row=2, column=0, sticky="nsew")
 btn_plus_or_minus = Button(root, text="⁺/₋", command=lambda: add_minus("-"), height=1, width=3, font=("Arial", 18),
                            bg="#6a6563", fg="white")
 btn_plus_or_minus.grid(row=2, column=1, sticky="nsew")
-btn_percent = Button(root, text="%", command=lambda: calculate_percent("%"), height=1, width=3, font=("Arial", 18),
+btn_percent = Button(root, text="%", command=calculate_percent, height=1, width=3, font=("Arial", 18),
                      bg="#6a6563", fg="white")
 btn_percent.grid(row=2, column=2, sticky="nsew")
 btn_divide = Button(root, text="÷", command=lambda: add_to_calculation("/"), height=1, width=3, font=("Arial", 18),
